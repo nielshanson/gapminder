@@ -1,0 +1,44 @@
+---
+title: "gapminder"
+output: html_document
+---
+
+Download and load the gapminder data.
+
+```{r}
+url <- "http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderDataFiveYear.txt"
+download.file(url, "gapminderDataFiveYear.txt", method="curl")
+df <- read.table("gapminderDataFiveYear.txt", head=T, sep="\t")
+df <- read.delim("gapminderDataFiveYear.txt")
+```
+
+Thank god that was properly formatted.
+
+Getting to know a `data.frame`
+
+```{r}
+str(df)
+head(df)
+tail(df)
+summary(df)
+names(df)
+dim(df)
+nrow(df)
+length(df)
+ncol(df)
+```
+
+* `data.frames` are actually a `list()` R Object.
+* they can hold many different kinds of R Object, recall that all other data types in R are `atomic`
+* list that acts like a matrix, each of these lists has to be the same length
+* generic functions have actions that depend on the type of object handed to it
+* `summary()` 
+  * allows you to see if there are problems
+  * looks 
+
+Now we will load the `ggplot2` library.
+
+```{r}
+library("ggplot2")
+qplot(data=df, lifeExp, log(gdpPercap), col=continent) + theme_bw()
+```
