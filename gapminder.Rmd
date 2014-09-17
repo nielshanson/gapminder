@@ -1,14 +1,16 @@
 ---
 title: "gapminder"
 output: html_document
+
 ---
 
 Download and load the gapminder data.
 
 ```{r}
+setwd("~/Dropbox/courses/stat545A/gapminder/")
 url <- "http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderDataFiveYear.txt"
 download.file(url, "gapminderDataFiveYear.txt", method="curl")
-df <- read.table("gapminderDataFiveYear.txt", head=T, sep="\t")
+df <- read.table("gapminderDataFiveYear.txt", head=T, sep="\t", fill= TRUE )
 df <- read.delim("gapminderDataFiveYear.txt")
 ```
 
@@ -34,11 +36,28 @@ ncol(df)
 * generic functions have actions that depend on the type of object handed to it
 * `summary()` 
   * allows you to see if there are problems
-  * looks 
+  * give you a quick idea of current data stories 
 
 Now we will load the `ggplot2` library.
 
 ```{r}
 library("ggplot2")
-qplot(data=df, lifeExp, log(gdpPercap), col=continent) + theme_bw()
+# nothing to print
+ggplot(df, aes(x = gdpPercap, y = lifeExp)) + geom_point()
+
+```
+
+
+
+## Factors
+
+* special type of structure categorial variable
+* values stored as integers with `levels` that map to the chatacter strings and their relative order
+
+```{r}
+str(df$continent)
+nlevels(df$continent)
+levels(df$continent)
+table(df$continent)
+barplot(table(df$continent))
 ```
